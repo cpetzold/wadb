@@ -5,10 +5,13 @@ import express from "express";
 import fileUpload, { UploadedFile } from "express-fileupload";
 import FormData from "form-data";
 import fs from "fs";
-import { MongoClient, ObjectId } from "mongodb";
+import { Filter, MongoClient, ObjectId } from "mongodb";
 import fetch from "node-fetch";
 import path from "path";
 import { omit } from "ramda";
+
+// @ts-ignore
+import MongoPaging from "mongo-cursor-pagination";
 
 const client = new MongoClient(process.env.MONGO_URI);
 
@@ -44,7 +47,7 @@ async function downloadFile(url: string, path: string) {
   });
 }
 
-app.post("/", async (req, res) => {
+app.post("/games", async (req, res) => {
   const games = client.db("wadb").collection("games");
   const replay = req.files.replay as UploadedFile;
   const foundGame = await games.findOne({ md5: replay.md5 });
@@ -83,6 +86,7 @@ app.post("/", async (req, res) => {
 
   const gameDocument = {
     md5: replay.md5,
+    filename: replay.name,
     mapUrl: uploadedMap.publicUrl(),
     replayUrl: uploadedReplay.publicUrl(),
     ...omit(["map"], game),
@@ -90,14 +94,39 @@ app.post("/", async (req, res) => {
 
   const insertedGame = await games.insertOne(gameDocument);
 
-  res.send({
+  res.json({
     _id: insertedGame.insertedId,
     ...gameDocument,
   });
 });
 
-app.get("/", (req, res) => {
-  res.send({ foo: "bar" });
+app.get("/games", async (req, res, next) => {
+  try {
+    const result: any = await MongoPaging.findWithReq(
+      req,
+      client.db("wadb").collection("games"),
+      {
+        limit: 50,
+      }
+    );
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.get("/games/:filenameOrId", async (req, res) => {
+  const filenameOrId = req.params.filenameOrId;
+  const conditions: Filter<Document>[] = [{ filename: filenameOrId }];
+  if (ObjectId.isValid(filenameOrId)) {
+    conditions.push({ _id: new ObjectId(filenameOrId) });
+  }
+
+  const result = await client.db("wadb").collection("games").findOne({
+    $or: conditions,
+  });
+
+  res.json(result);
 });
 
 client.connect(async (err) => {
