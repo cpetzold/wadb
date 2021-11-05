@@ -1,15 +1,17 @@
-import hasha from "hasha";
+import * as db from "../../../lib/db";
+import * as waaaas from "../../../lib/waaaas";
+
+import { NextApiRequest, NextApiResponse } from "next";
+
 // @ts-ignore
 import MongoPaging from "mongo-cursor-pagination";
-import multer from "multer";
-import { NextApiRequest, NextApiResponse } from "next";
-import nc from "next-connect";
-import path from "path";
-import { omit } from "ramda";
-import * as db from "../../../lib/db";
-import { downloadFile } from "../../../lib/fs";
 import { bucket } from "../../../lib/gcloud";
-import * as waaaas from "../../../lib/waaaas";
+import { downloadFile } from "../../../lib/fs";
+import hasha from "hasha";
+import multer from "multer";
+import nc from "next-connect";
+import { omit } from "ramda";
+import path from "path";
 
 const handler = nc<NextApiRequest, NextApiResponse>();
 
@@ -49,6 +51,7 @@ handler.post(upload.single("replay"), async (req, res) => {
     filename: replay.originalname,
     mapUrl: uploadedMap.publicUrl(),
     replayUrl: uploadedReplay.publicUrl(),
+    uploadedAt: new Date(),
     ...omit(["map"], game),
   };
 
