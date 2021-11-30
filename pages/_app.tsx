@@ -1,10 +1,10 @@
 import type { AppProps } from "next/app";
-import { ThemeProvider } from "wa-ui";
+import { ChakraProvider } from "@chakra-ui/react";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider>
+    <ChakraProvider>
       <Component {...pageProps} />
-    </ThemeProvider>
+    </ChakraProvider>
   );
 }
