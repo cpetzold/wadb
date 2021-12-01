@@ -1,78 +1,41 @@
-import * as db from "../../../lib/db";
-import * as waaaas from "../../../lib/waaaas";
-
 import { NextApiRequest, NextApiResponse } from "next";
 
-// @ts-ignore
-import MongoPaging from "mongo-cursor-pagination";
-import { bucket } from "../../../lib/gcloud";
-import { downloadFile } from "../../../lib/fs";
-import hasha from "hasha";
+import { PrismaClient } from "@prisma/client";
+import { exec } from "child_process";
+import fs from "fs";
 import multer from "multer";
 import nc from "next-connect";
-import { omit } from "ramda";
-import path from "path";
+import { parseGameLog } from "../../../lib/wa";
+
+const db = new PrismaClient();
 
 const handler = nc<NextApiRequest, NextApiResponse>();
 
-const upload = multer({ dest: "/tmp/" });
+const upload = multer({ dest: "uploads" });
 
 handler.post(upload.single("replay"), async (req, res) => {
-  const games = await db.collection("games");
   const replay = req.file;
-  const replayMd5 = await hasha.fromFile(replay.path);
 
-  const foundGame = await games.findOne({ md5: replayMd5 });
-
-  if (foundGame) {
-    return res.send(foundGame);
+  if (!replay) {
+    throw new Error("Missing replay");
   }
 
-  const game = await waaaas.parseReplay(replay.path, replay.originalname);
+  // const md5 = await hasha.fromFile(replay.path);
 
-  const mapFilename =
-    path.basename(replay.originalname, ".WAgame") + ".map.png";
-  const mapTmpFile = path.join("/tmp", mapFilename);
+  // const foundGame = await db.game.findFirst({ where: { md5 } });
 
-  await downloadFile(game.map, mapTmpFile);
+  // if (foundGame) {
+  //   return res.json(foundGame);
+  // }
 
-  const [uploadedMap] = await bucket.upload(mapTmpFile, {
-    destination: mapFilename,
-    gzip: true,
-  });
+  exec(
+    `wine "C:\WA\WA-3.8.1.7.exe" /quiet /getlog "$(winepath -w "${replay.path}")"`
+  );
 
-  const [uploadedReplay] = await bucket.upload(replay.path, {
-    destination: replay.originalname,
-    gzip: true,
-  });
+  const logPath = replay.path.replace(/\.wagame/gi, ".log");
 
-  const gameDocument = {
-    md5: replayMd5,
-    filename: replay.originalname,
-    mapUrl: uploadedMap.publicUrl(),
-    replayUrl: uploadedReplay.publicUrl(),
-    uploadedAt: new Date(),
-    ...omit(["map"], game),
-  };
-
-  const insertedGame = await games.insertOne(gameDocument);
-
-  res.json({
-    _id: insertedGame.insertedId,
-    ...gameDocument,
-  });
-});
-
-handler.get(async (req, res, next) => {
-  const games = await db.collection("games");
-  try {
-    const result: any = await MongoPaging.findWithReq(req, games, {
-      limit: 50,
-    });
-    res.json(result);
-  } catch (err) {
-    next(err);
-  }
+  const log = fs.readFileSync(logPath, "utf-8");
+  res.json(parseGameLog(log));
 });
 
 export default handler;
