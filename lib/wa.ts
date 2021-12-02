@@ -1,7 +1,7 @@
-import { forEach, map, split } from "ramda";
+import { forEach, join, map, split, values } from "ramda";
 
 import { TypedRegEx } from "typed-regex";
-import fs from "fs";
+import { format } from "date-fns";
 
 type Player = {
   name: string;
@@ -73,13 +73,13 @@ type Event =
   | DamageEvent;
 
 type WAGame = {
-  id?: string;
-  buildVersion?: string;
-  engineVersion?: string;
-  fileFormatVersion?: string;
-  exportedWithVersion?: string;
+  id: string;
+  buildVersion: string;
+  engineVersion: string;
+  fileFormatVersion: string;
+  exportedWithVersion: string;
 
-  startedAt?: Date;
+  startedAt: Date;
   matchComplete: boolean;
   round: number;
   roundTime?: number;
@@ -223,23 +223,18 @@ function parseEvent(event: string): Event | undefined {
 }
 
 export function parseGameLog(log: string): WAGame {
-  const buildVersion = buildVersionRegex.captures(log)?.buildVersion;
-  const id = idRegex.captures(log)?.id;
-  const startedAt = startedAtRegex.captures(log)?.startedAt;
-  const engineVersion = engineVersionRegex.captures(log)?.engineVersion;
+  const buildVersion = buildVersionRegex.captures(log)!.buildVersion;
+  const id = idRegex.captures(log)!.id;
+  const startedAt = startedAtRegex.captures(log)!.startedAt;
+  const engineVersion = engineVersionRegex.captures(log)!.engineVersion;
   const fileFormatVersion =
-    fileFormatVersionRegex.captures(log)?.fileFormatVersion;
+    fileFormatVersionRegex.captures(log)!.fileFormatVersion;
   const exportedWithVersion =
-    exportedWithVersionRegex.captures(log)?.exportedWithVersion;
+    exportedWithVersionRegex.captures(log)!.exportedWithVersion;
+  const round = parseInt(roundRegex.captures(log)!.round);
+  const roundTime = parseTimestamp(roundTimeRegex.captures(log)!.roundTime);
 
-  const roundCaptures = roundRegex.captures(log);
-  const round = roundCaptures ? parseInt(roundCaptures.round) : 1;
-
-  const roundTimeCaptures = roundTimeRegex.captures(log);
-  const roundTime = roundTimeCaptures
-    ? parseTimestamp(roundTimeCaptures.roundTime)
-    : undefined;
-
+  // TODO: Don't make this required
   const winnerCaptures = winnerRegex.captures(log);
   if (!winnerCaptures) {
     throw new Error("Failed to parse");
@@ -322,7 +317,7 @@ export function parseGameLog(log: string): WAGame {
     exportedWithVersion,
     fileFormatVersion,
     id,
-    startedAt: startedAt ? new Date(startedAt) : undefined,
+    startedAt: new Date(startedAt),
     round,
     roundTime,
     matchComplete,
@@ -336,12 +331,21 @@ export function parseTimestamp(str: string): number {
   const {
     // @ts-ignore
     groups: { h, m, s, cs },
-  } = str.match(/(?<h>\d{2}):(?<m>\d{2}):(?<s>\d{2})(\.(?<cs>\d{2}))?/);
+  } = str.match(/(?<h>\d{1,2}):(?<m>\d{2}):(?<s>\d{2})(\.(?<cs>\d{2}))?/);
   return (
     (parseInt(h) * 60 * 60 + parseInt(m) * 60 + parseInt(s)) * 1000 +
     parseInt(cs ? cs : 0) * 10
   );
 }
 
-const log = fs.readFileSync("test.log", "utf-8");
-console.log(parseGameLog(log));
+export function replayFilename(game: WAGame): string {
+  const startedAt = format(game.startedAt, "yyyy-MM-dd HH.mm.ss");
+  const playerList = join(
+    ", ",
+    map(
+      (player) => (player.local ? `@` : "") + player.name,
+      values(game.players)
+    )
+  );
+  return `${startedAt} [WADB] ${playerList}.wagame`;
+}
