@@ -1,7 +1,16 @@
-import { forEach, join, map, split, values } from "ramda";
-
-import { TypedRegEx } from "typed-regex";
 import { format } from "date-fns";
+import {
+  findLast,
+  forEach,
+  indexBy,
+  isEmpty,
+  join,
+  map,
+  prop,
+  split,
+  values,
+} from "ramda";
+import { TypedRegEx } from "typed-regex";
 
 type Player = {
   name: string;
@@ -14,22 +23,25 @@ type Player = {
 };
 
 type Team = {
-  player: string;
+  player?: string;
   name: string;
   color: string;
+  cpu: boolean;
+  cpuLevel?: number;
   turnCount: number;
   turnTime: number;
   retreatTime: number;
+  totalTime: number;
   won: boolean;
 };
 
 type BaseEvent = {
   timestamp: number;
-  player: string;
 };
 
 type ChatEvent = BaseEvent & {
   type: "chat";
+  player: string;
   message: string;
 };
 
@@ -47,6 +59,12 @@ type EndTurnEvent = TurnEvent & {
   type: "endTurn";
   turnTime: number;
   retreatTime: number;
+  lostControl: boolean;
+};
+
+type UseWeaponEvent = TurnEvent & {
+  type: "useWeapon";
+  weapon: string;
 };
 
 type FireWeaponEvent = TurnEvent & {
@@ -65,24 +83,40 @@ type DamageEvent = TurnEvent & {
   damages: Damage[];
 };
 
+type GameEndEvent = BaseEvent & {
+  type: "gameEnd";
+  reason: "roundFinish" | "altF4";
+};
+
 type Event =
   | ChatEvent
   | StartTurnEvent
   | EndTurnEvent
+  | UseWeaponEvent
   | FireWeaponEvent
-  | DamageEvent;
+  | DamageEvent
+  | GameEndEvent;
 
-type WAGame = {
-  id: string;
+type Mission = {
+  number: number;
+  name: string;
+  successful: boolean;
+};
+
+export type WAGame = {
+  id?: string;
   buildVersion: string;
   engineVersion: string;
   fileFormatVersion: string;
   exportedWithVersion: string;
 
+  type?: "training" | "mission" | "deathmatch" | "quick" | "online";
   startedAt: Date;
-  matchComplete: boolean;
+  mission?: Mission;
+  matchComplete?: boolean;
   round: number;
   roundTime?: number;
+  totalTime?: number;
   players: { [name: string]: Player };
   teams: { [name: string]: Team };
   events: Event[];
@@ -107,8 +141,21 @@ const exportedWithVersionRegex = TypedRegEx(
   "gm"
 );
 
+const missionRegex = TypedRegEx(
+  "^Mission #(?<number>\\d+): (?<name>.*).$",
+  "gm"
+);
+const missionStatusRegex = TypedRegEx(
+  "^Mission (?<status>(Successful|Failed))$",
+  "gm"
+);
+
 const roundRegex = TypedRegEx("^End of round (?<round>\\d+)$", "gm");
 const roundTimeRegex = TypedRegEx("^Round time: (?<roundTime>.*)$", "gm");
+const totalTimeRegex = TypedRegEx(
+  "^Total game time elapsed: (?<totalTime>.*)$",
+  "gm"
+);
 
 const winnerRegex = TypedRegEx(
   "^(?<teamName>.*) wins the (?<gameType>(match|round))(!|\\.)$",
@@ -116,7 +163,17 @@ const winnerRegex = TypedRegEx(
 );
 
 const playerRegex = TypedRegEx(
-  '^(?<colorOrSpectator>Red|Green|Blue|Yellow|Magenta|Cyan|Spectator):\\s+"(?<name>[^"]+)"(\\s+as)?\\s+("(?<teamName>[^"]+)")*.*\\(addr: (?<addr>[^\\)]+)\\)\\s+\\(lang: (?<lang>[^\\)]+)\\)\\s+\\(build: (?<build>.*\\])\\)\\s*(?<local>\\[Local Player\\])?\\s*(?<host>\\[Host\\])?$',
+  '^(?<colorOrSpectator>Red|Green|Blue|Yellow|Magenta|Cyan|Spectator):\\s+"(?<name>[^"]+)"(\\s+as)?\\s+("(?<teamName>[^"]+)")*.*(\\(addr: (?<addr>[^\\)]+)\\)\\s+)?\\(lang: (?<lang>[^\\)]+)\\)\\s+\\(build: (?<build>.*\\])\\)\\s*(?<local>\\[Local Player\\])?\\s*(?<host>\\[Host\\])?$',
+  "gm"
+);
+
+const offlineTeamRegex = TypedRegEx(
+  '^(?<color>Red|Green|Blue|Yellow|Magenta|Cyan):\\s+"(?<name>[^"]+)"(\\s+\\[CPU (?<cpuLevel>[^\\]]+)\\])?$',
+  "gm"
+);
+
+const teamTimeTotalsRegex = TypedRegEx(
+  "^(?<teamName>.+):\\s+Turn: (?<turnTime>[^,]+), Retreat: (?<retreatTime>[^,]+), Total: (?<totalTime>[^,]+), Turn count: (?<turnCount>\\d+)$",
   "gm"
 );
 
@@ -128,27 +185,37 @@ const chatEventRegex = TypedRegEx(
 );
 
 const startTurnEventRegex = TypedRegEx(
-  "^\\[(?<timestamp>[^\\]]+)\\] ��� (?<teamName>.*) \\((?<playerName>[^\\)]+)\\) starts turn$",
+  "^\\[(?<timestamp>[^\\]]+)\\] ••• (?<teamName>.*)( \\((?<playerName>[^\\)]+)\\))? starts turn$",
   "gm"
 );
 
 const endTurnEventRegex = TypedRegEx(
-  "^\\[(?<timestamp>[^\\]]+)\\] ��� (?<teamName>.*) \\((?<playerName>[^\\)]+)\\) ends turn; time used: (?<turnTime>[\\d\\.]+) sec turn, (?<retreatTime>[\\d\\.]+) sec retreat$",
+  "^\\[(?<timestamp>[^\\]]+)\\] ••• (?<teamName>.*)( \\((?<playerName>[^\\)]+)\\))? (?<reason>(ends turn|loses turn due to loss of control)); time used: (?<turnTime>[\\d\\.]+) sec turn, (?<retreatTime>[\\d\\.]+) sec retreat$",
+  "gm"
+);
+
+const useWeaponEventRegex = TypedRegEx(
+  "^\\[(?<timestamp>[^\\]]+)\\] ••• (?<teamName>.*)( \\((?<playerName>[^\\)]+)\\))? uses (?<weapon>.*)$",
   "gm"
 );
 
 const fireWeaponEventRegex = TypedRegEx(
-  "^\\[(?<timestamp>[^\\]]+)\\] ��� (?<teamName>.*) \\((?<playerName>[^\\)]+)\\) fires (?<weapon>.*)$",
+  "^\\[(?<timestamp>[^\\]]+)\\] ••• (?<teamName>.*)( \\((?<playerName>[^\\)]+)\\))? fires (?<weapon>.*)$",
   "gm"
 );
 
 const damageEventRegex = TypedRegEx(
-  "^\\[(?<timestamp>[^\\]]+)\\] ��� Damage dealt: (?<damages>.*)$",
+  "^\\[(?<timestamp>[^\\]]+)\\] ••• Damage dealt: (?<damages>.*)$",
   "gm"
 );
 
 const damageRegex = TypedRegEx(
-  "^(?<amount>\\d+)( \\((?<kills>\\d+) kills?\\))? to (?<teamName>.*) \\((?<playerName>[^\\)]+)\\)$",
+  "^(?<amount>\\d+)( \\((?<kills>\\d+) kills?\\))? to (?<teamName>.*)( \\((?<playerName>[^\\)]+)\\))?$",
+  "gm"
+);
+
+const gameEndEventRegex = TypedRegEx(
+  "^\\[(?<timestamp>[^\\]]+)\\] ••• Game Ends - (?<reason>.*)$",
   "gm"
 );
 
@@ -161,7 +228,7 @@ function parseDamage(damageStr: string): Damage {
 
   return {
     amount: parseInt(damage.amount),
-    kills: parseInt(damage.kills),
+    kills: parseInt(damage.kills) || 0,
     toTeam: damage.teamName,
   };
 }
@@ -182,7 +249,6 @@ function parseEvent(event: string): Event | undefined {
     return {
       type: "startTurn",
       timestamp: parseTimestamp(startTurnEvent.timestamp),
-      player: startTurnEvent.playerName,
       team: startTurnEvent.teamName,
     } as StartTurnEvent;
   }
@@ -192,11 +258,21 @@ function parseEvent(event: string): Event | undefined {
     return {
       type: "endTurn",
       timestamp: parseTimestamp(endTurnEvent.timestamp),
-      player: endTurnEvent.playerName,
       team: endTurnEvent.teamName,
       turnTime: parseFloat(endTurnEvent.turnTime) * 1000,
       retreatTime: parseFloat(endTurnEvent.retreatTime) * 1000,
+      lostControl: endTurnEvent.reason === "loses turn due to loss of control",
     } as EndTurnEvent;
+  }
+
+  const useWeaponEvent = useWeaponEventRegex.captures(event);
+  if (useWeaponEvent) {
+    return {
+      type: "useWeapon",
+      timestamp: parseTimestamp(useWeaponEvent.timestamp),
+      team: useWeaponEvent.teamName,
+      weapon: useWeaponEvent.weapon,
+    } as UseWeaponEvent;
   }
 
   const fireWeaponEvent = fireWeaponEventRegex.captures(event);
@@ -204,7 +280,6 @@ function parseEvent(event: string): Event | undefined {
     return {
       type: "fireWeapon",
       timestamp: parseTimestamp(fireWeaponEvent.timestamp),
-      player: fireWeaponEvent.playerName,
       team: fireWeaponEvent.teamName,
       weapon: fireWeaponEvent.weapon,
     } as FireWeaponEvent;
@@ -219,29 +294,69 @@ function parseEvent(event: string): Event | undefined {
     } as DamageEvent;
   }
 
+  const gameEndEvent = gameEndEventRegex.captures(event);
+  if (gameEndEvent) {
+    return {
+      type: "gameEnd",
+      timestamp: parseTimestamp(gameEndEvent.timestamp),
+      reason:
+        gameEndEvent.reason === "User Quit with Alt+F4"
+          ? "altF4"
+          : "roundFinish",
+    } as GameEndEvent;
+  }
+
   return undefined;
 }
 
 export function parseGameLog(log: string): WAGame {
   const buildVersion = buildVersionRegex.captures(log)!.buildVersion;
-  const id = idRegex.captures(log)!.id;
+  const id = idRegex.captures(log)?.id;
   const startedAt = startedAtRegex.captures(log)!.startedAt;
   const engineVersion = engineVersionRegex.captures(log)!.engineVersion;
   const fileFormatVersion =
     fileFormatVersionRegex.captures(log)!.fileFormatVersion;
   const exportedWithVersion =
     exportedWithVersionRegex.captures(log)!.exportedWithVersion;
-  const round = parseInt(roundRegex.captures(log)!.round);
-  const roundTime = parseTimestamp(roundTimeRegex.captures(log)!.roundTime);
+  const roundCapture = roundRegex.captures(log)?.round;
+  const round = roundCapture ? parseInt(roundCapture) : 1;
 
-  // TODO: Don't make this required
+  const missionCapture = missionRegex.captures(log);
+  const missionStatusCapture = missionStatusRegex.captures(log)?.status;
+
+  const mission: Mission | undefined = missionCapture
+    ? {
+        name: missionCapture.name,
+        number: parseInt(missionCapture.number),
+        successful: missionStatusCapture
+          ? missionStatusCapture === "Successful"
+          : false,
+      }
+    : undefined;
+
+  const totalTimeCapture = totalTimeRegex.captures(log)?.totalTime;
+  const totalTime = totalTimeCapture
+    ? parseTimestamp(totalTimeCapture)
+    : undefined;
+
   const winnerCaptures = winnerRegex.captures(log);
-  if (!winnerCaptures) {
-    throw new Error("Failed to parse");
-  }
+  const winningTeam = winnerCaptures?.teamName;
+  const matchComplete = winnerCaptures
+    ? winnerCaptures.gameType === "match"
+    : undefined;
 
-  const winningTeam = winnerCaptures.teamName;
-  const matchComplete = winnerCaptures.gameType === "match";
+  const teamTimeTotals = indexBy(
+    prop("teamName"),
+    map((capture) => {
+      return {
+        teamName: capture!.teamName,
+        turnCount: parseInt(capture!.turnCount),
+        turnTime: parseTimestamp(capture!.turnTime),
+        retreatTime: parseTimestamp(capture!.retreatTime),
+        totalTime: parseTimestamp(capture!.totalTime),
+      };
+    }, teamTimeTotalsRegex.captureAll(log))
+  );
 
   const players: { [name: string]: Player } = {};
   const teams: { [name: string]: Team } = {};
@@ -271,13 +386,29 @@ export function parseGameLog(log: string): WAGame {
         player: name,
         name: teamName,
         color: colorOrSpectator,
-        retreatTime: 0,
-        turnCount: 0,
-        turnTime: 0,
+        cpu: false,
         won: teamName === winningTeam,
+        ...teamTimeTotals[teamName]!,
       };
     }
   }, playerRegex.captureAll(log));
+
+  forEach((capture) => {
+    if (!capture) {
+      return;
+    }
+
+    const { color, name, cpuLevel } = capture;
+
+    teams[name] = {
+      name,
+      color,
+      cpu: !!cpuLevel,
+      cpuLevel: cpuLevel ? parseFloat(cpuLevel) : undefined,
+      won: name === winningTeam,
+      ...teamTimeTotals[name]!,
+    };
+  }, offlineTeamRegex.captureAll(log));
 
   const eventStrs = map((match) => match.raw[0], eventRegex.matchAll(log));
   const events: Event[] = [];
@@ -308,7 +439,24 @@ export function parseGameLog(log: string): WAGame {
         break;
     }
 
+    if (event.type === "damage") {
+      event.team = activeTeam;
+    }
+
     events.push(event);
+  }
+
+  const roundTimeCapture = roundTimeRegex.captures(log);
+  const roundTime = roundTimeCapture
+    ? parseTimestamp(roundTimeCapture.roundTime)
+    : findLast((event) => event.type === "gameEnd", events)?.timestamp;
+
+  let type: WAGame["type"];
+
+  if (mission) {
+    type = "mission";
+  } else if (!isEmpty(players)) {
+    type = "online";
   }
 
   return {
@@ -317,9 +465,12 @@ export function parseGameLog(log: string): WAGame {
     exportedWithVersion,
     fileFormatVersion,
     id,
+    type,
     startedAt: new Date(startedAt),
     round,
+    mission,
     roundTime,
+    totalTime,
     matchComplete,
     players,
     teams,

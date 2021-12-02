@@ -1,0 +1,272 @@
+Build Version: v3.8.1.7 (2021-11-19 07:44:47 GMT)
+
+Game ID: "extern"
+Game Started at 2021-11-25 09:08:45 GMT
+Game Engine Version: 3.8.1
+File Format Version: 3.7.3.0 - 3.8.1.7
+Exported with Version: 3.8.1.7
+
+Green: "Syc"    as "go"                               (lang: English) (build: v3.8.1.7           [2021-11-19 07:44:47 GMT]) [Local Player] [Host]
+Red:   "Mablak" as "Ro Bad 4" * (addr: 184.3.193.204) (lang: English) (build: v3.8.1 RC2 (Steam) [2020-11-08 20:08:43 GMT])
+Blue:  "Syc"    as "3Per"                             (lang: English) (build: v3.8.1.7           [2021-11-19 07:44:47 GMT]) [Local Player] [Host]
+Green: "Mablak" as "OOM"      * (addr: 184.3.193.204) (lang: English) (build: v3.8.1 RC2 (Steam) [2020-11-08 20:08:43 GMT])
+
+[00:00:01.24] ••• OOM (Mablak) starts turn
+[00:00:41.16] ••• OOM (Mablak) ends turn; time used: 30.00 sec turn, 0.00 sec retreat
+[00:00:43.18] ••• Ro Bad 4 (Mablak) starts turn
+[00:01:22.50] ••• Ro Bad 4 (Mablak) fires Grenade (3 sec, min bounce)
+[00:01:26.96] ••• Ro Bad 4 (Mablak) ends turn; time used: 29.32 sec turn, 3.00 sec retreat
+[00:01:32.42] ••• Damage dealt: 42 to 3Per (Syc)
+[00:01:32.42] ••• 3Per (Syc) starts turn
+[00:01:46.86] ••• 3Per (Syc) fires Jet Pack
+[00:02:02.70] ••• 3Per (Syc) fires Mad Cow (herd of 2)
+[00:02:03.02] ••• 3Per (Syc) used 30 units of Jet Pack fuel
+[00:02:08.70] ••• 3Per (Syc) ends turn; time used: 19.86 sec turn, 5.00 sec retreat
+[00:02:13.22] ••• Damage dealt: 129 to Ro Bad 4 (Mablak), 70 to 3Per (Syc), 42 to OOM (Mablak)
+[00:02:13.22] ••• go (Syc) starts turn
+[00:02:42.24] ••• go (Syc) fires Mad Cow (herd of 2)
+[00:02:46.28] ••• go (Syc) ends turn; time used: 19.02 sec turn, 3.00 sec retreat
+[00:02:49.88] ••• Damage dealt: 63 to Ro Bad 4 (Mablak)
+[00:02:49.88] ••• Ro Bad 4 (Mablak) starts turn
+[00:03:10.50] ••• Ro Bad 4 (Mablak) fires Jet Pack
+[00:03:16.96] ••• Ro Bad 4 (Mablak) used 30 units of Jet Pack fuel
+[00:03:30.08] ••• Ro Bad 4 (Mablak) fires Dynamite
+[00:03:35.12] ••• Ro Bad 4 (Mablak) loses turn due to loss of control; time used: 29.78 sec turn, 4.86 sec retreat
+[00:03:47.88] ••• Damage dealt: 150 (1 kill) to go (Syc), 6 to Ro Bad 4 (Mablak), 8 to 3Per (Syc)
+[00:03:47.88] ••• 3Per (Syc) starts turn
+[00:04:01.70] ••• 3Per (Syc) fires Ninja Rope
+[00:04:20.78] ••• 3Per (Syc) fires Holy Hand-Grenade
+[00:04:28.56] ••• 3Per (Syc) loses turn due to loss of control; time used: 29.74 sec turn, 3.00 sec retreat
+[00:04:39.02] ••• Damage dealt: 209 (1 kill) to Ro Bad 4 (Mablak), 36 to 3Per (Syc)
+[00:04:39.02] ••• OOM (Mablak) starts turn
+[00:05:13.50] ••• OOM (Mablak) fires Teleport
+[00:05:13.92] ••• resetting Jet Pack fuel use to 0
+[00:05:15.98] ••• OOM (Mablak) ends turn; time used: 24.48 sec turn, 0.02 sec retreat
+[00:05:16.50] ••• Ro Bad 4 (Mablak) starts turn
+[00:05:51.86] ••• Ro Bad 4 (Mablak) fires Ninja Rope
+[00:05:56.26] ••• Ro Bad 4 (Mablak) fires Sheep Launcher
+[00:06:01.28] ••• Ro Bad 4 (Mablak) ends turn; time used: 29.76 sec turn, 5.00 sec retreat
+[00:06:08.08] ••• Damage dealt: 44 to 3Per (Syc), 47 to OOM (Mablak)
+[00:06:08.08] ••• 3Per (Syc) starts turn
+[00:06:17.88] ••• 3Per (Syc) fires Ninja Rope
+[00:06:40.66] ••• 3Per (Syc) fires Girder Starter-Pack
+[00:06:42.10] ••• 3Per (Syc) fires Girder Starter-Pack
+[00:06:44.08] ••• 3Per (Syc) fires Girder Starter-Pack
+[00:06:46.18] ••• 3Per (Syc) fires Girder Starter-Pack
+[00:06:46.88] ••• 3Per (Syc) fires Girder Starter-Pack
+[00:06:49.96] ••• 3Per (Syc) ends turn; time used: 29.94 sec turn, 3.00 sec retreat
+[00:06:50.94] ••• go (Syc) starts turn
+[00:07:20.54] ••• go (Syc) fires Shotgun
+[00:07:22.94] ••• go (Syc) fires Shotgun
+[00:07:27.10] ••• go (Syc) ends turn; time used: 29.88 sec turn, 3.00 sec retreat
+[00:07:31.12] ••• Ro Bad 4 (Mablak) starts turn
+[00:08:10.84] ••• Ro Bad 4 (Mablak) fires Longbow
+[00:08:12.08] ••• Ro Bad 4 (Mablak) fires Longbow
+[00:08:15.16] ••• Ro Bad 4 (Mablak) ends turn; time used: 29.74 sec turn, 3.00 sec retreat
+[00:08:19.18] ••• 3Per (Syc) starts turn
+[00:08:35.70] ••• 3Per (Syc) fires Ninja Rope
+[00:08:58.94] ••• 3Per (Syc) fires Homing Pigeon
+[00:09:02.02] ••• 3Per (Syc) ends turn; time used: 29.66 sec turn, 3.00 sec retreat
+[00:09:10.64] ••• Damage dealt: 39 to Ro Bad 4 (Mablak), 71 to OOM (Mablak)
+[00:09:10.64] ••• OOM (Mablak) starts turn
+[00:09:28.86] ••• OOM (Mablak) fires Shotgun
+[00:09:48.50] ••• OOM (Mablak) fires Shotgun
+[00:09:52.66] ••• OOM (Mablak) ends turn; time used: 27.56 sec turn, 3.00 sec retreat
+[00:10:02.02] ••• Damage dealt: 21 (1 kill) to Ro Bad 4 (Mablak)
+[00:10:02.02] ••• Ro Bad 4 (Mablak) starts turn
+[00:10:26.18] ••• Ro Bad 4 (Mablak) fires Shotgun
+[00:10:43.60] ••• Ro Bad 4 (Mablak) fires Shotgun
+[00:10:47.76] ••• Ro Bad 4 (Mablak) ends turn; time used: 29.48 sec turn, 3.00 sec retreat
+[00:10:52.18] ••• Damage dealt: 19 to 3Per (Syc)
+[00:10:52.18] ••• 3Per (Syc) starts turn
+[00:11:15.90] ••• 3Per (Syc) fires Shotgun
+[00:11:31.70] ••• 3Per (Syc) fires Shotgun
+[00:11:35.86] ••• 3Per (Syc) ends turn; time used: 29.14 sec turn, 3.00 sec retreat
+[00:11:41.02] ••• Damage dealt: 87 (1 kill) to Ro Bad 4 (Mablak), 48 to OOM (Mablak)
+[00:11:41.02] ••• go (Syc) starts turn
+[00:12:11.32] ••• go (Syc) fires Shotgun
+[00:12:15.90] ••• go (Syc) fires Shotgun
+[00:12:20.06] ••• go (Syc) ends turn; time used: 27.96 sec turn, 3.00 sec retreat
+[00:12:27.00] ••• Damage dealt: 24 to go (Syc)
+[00:12:27.00] ••• Ro Bad 4 (Mablak) starts turn
+[00:12:56.60] ••• Ro Bad 4 (Mablak) fires Longbow
+[00:13:08.38] ••• Ro Bad 4 (Mablak) fires Longbow
+[00:13:11.46] ••• Ro Bad 4 (Mablak) ends turn; time used: 29.14 sec turn, 3.00 sec retreat
+[00:13:15.42] ••• Damage dealt: 150 (1 kill) to 3Per (Syc)
+[00:13:15.42] ••• 3Per (Syc) starts turn
+[00:13:43.84] ••• 3Per (Syc) fires Mail Strike
+[00:13:49.24] ••• 3Per (Syc) ends turn; time used: 18.42 sec turn, 3.00 sec retreat
+[00:13:59.22] ••• Damage dealt: 79 (1 kill) to OOM (Mablak)
+[00:13:59.22] ••• OOM (Mablak) starts turn
+[00:14:26.90] ••• OOM (Mablak) fires Ninja Rope
+[00:14:37.58] ••• OOM (Mablak) fires Sheep Launcher
+[00:14:42.60] ••• OOM (Mablak) ends turn; time used: 28.90 sec turn, 5.00 sec retreat
+[00:14:52.58] ••• Damage dealt: 51 to Ro Bad 4 (Mablak), 30 (1 kill) to 3Per (Syc)
+[00:14:52.58] ••• Ro Bad 4 (Mablak) starts turn
+[00:15:28.40] ••• Ro Bad 4 (Mablak) fires Super Sheep
+[00:15:32.04] ••• Ro Bad 4 (Mablak) ends turn; time used: 25.82 sec turn, 3.00 sec retreat
+[00:15:38.56] ••• Damage dealt: 107 to 3Per (Syc)
+[00:15:38.56] ••• 3Per (Syc) starts turn
+[00:15:54.54] ••• 3Per (Syc) fires Parachute
+[00:16:16.66] ••• 3Per (Syc) fires Homing Pigeon
+[00:16:16.94] ••• 3Per (Syc) loses turn due to loss of control; time used: 29.28 sec turn, 0.20 sec retreat
+[00:16:22.74] ••• Damage dealt: 72 to Ro Bad 4 (Mablak), 9 to 3Per (Syc)
+[00:16:22.74] ••• go (Syc) starts turn
+[00:16:48.04] ••• go (Syc) fires Blow Torch
+[00:16:53.56] ••• go (Syc) ends turn; time used: 17.18 sec turn, 3.00 sec retreat
+[00:16:57.58] ••• Ro Bad 4 (Mablak) starts turn
+[00:17:37.26] ••• Ro Bad 4 (Mablak) fires Grenade (2 sec, min bounce)
+[00:17:41.14] ••• Ro Bad 4 (Mablak) ends turn; time used: 29.68 sec turn, 3.00 sec retreat
+[00:17:41.36] ••• Glide Glitch #1
+[00:17:44.14] ••• 3Per (Syc) starts turn
+[00:18:07.52] ••• 3Per (Syc) fires Parachute
+[00:18:21.26] ••• 3Per (Syc) ends turn; time used: 30.00 sec turn, 0.00 sec retreat
+[00:18:22.04] ••• OOM (Mablak) starts turn
+[00:18:46.76] ••• OOM (Mablak) fires Fire Punch
+[00:18:51.18] ••• OOM (Mablak) ends turn; time used: 14.84 sec turn, 3.00 sec retreat
+[00:19:00.54] ••• Damage dealt: 23 (1 kill) to 3Per (Syc)
+[00:19:00.54] ••• Ro Bad 4 (Mablak) starts turn
+[00:19:15.86] ••• Ro Bad 4 (Mablak) fires Ninja Rope
+[00:19:25.58] ••• Ro Bad 4 (Mablak) fires Baseball Bat
+[00:19:29.16] ••• Ro Bad 4 (Mablak) ends turn; time used: 15.04 sec turn, 3.00 sec retreat
+[00:19:34.10] ••• Damage dealt: 141 (1 kill) to 3Per (Syc)
+[00:19:34.10] ••• 3Per (Syc) starts turn
+[00:19:57.78] ••• 3Per (Syc) fires Air Strike
+[00:20:01.26] ••• 3Per (Syc) ends turn; time used: 13.68 sec turn, 3.00 sec retreat
+[00:20:05.16] ••• Damage dealt: 53 to Ro Bad 4 (Mablak)
+[00:20:05.16] ••• go (Syc) starts turn
+[00:20:37.76] ••• go (Syc) fires Parachute
+[00:20:39.26] ••• go (Syc) fires Skip Go
+[00:20:39.28] ••• go (Syc) ends turn; time used: 29.20 sec turn, 0.00 sec retreat
+[00:20:41.30] ••• Ro Bad 4 (Mablak) starts turn
+[00:21:20.64] ••• Ro Bad 4 (Mablak) fires Baseball Bat
+[00:21:24.22] ••• Ro Bad 4 (Mablak) ends turn; time used: 29.34 sec turn, 3.00 sec retreat
+[00:21:27.98] ••• Damage dealt: 31 to OOM (Mablak)
+[00:21:27.98] ••• 3Per (Syc) starts turn
+[00:21:35.96] ••• 3Per (Syc) uses Parachute
+[00:21:39.56] ••• 3Per (Syc) fires Parachute
+[00:22:03.16] ••• 3Per (Syc) fires Baseball Bat
+[00:22:06.38] ••• 3Per (Syc) ends turn; time used: 29.38 sec turn, 3.00 sec retreat
+[00:22:09.82] ••• Damage dealt: 38 to OOM (Mablak)
+[00:22:09.82] ••• OOM (Mablak) starts turn
+[00:22:21.14] ••• OOM (Mablak) fires Ninja Rope
+[00:22:36.92] ••• OOM (Mablak) fires Ninja Rope
+[00:22:46.04] ••• OOM (Mablak) ends turn; time used: 30.00 sec turn, 0.00 sec retreat
+[00:22:48.06] ••• Ro Bad 4 (Mablak) starts turn
+[00:23:27.68] ••• Ro Bad 4 (Mablak) fires Grenade (5 sec, min bounce)
+[00:23:33.70] ••• Ro Bad 4 (Mablak) ends turn; time used: 29.62 sec turn, 3.00 sec retreat
+[00:23:37.72] ••• 3Per (Syc) starts turn
+[00:23:59.52] ••• 3Per (Syc) fires Dragon Ball
+[00:24:02.54] ••• 3Per (Syc) ends turn; time used: 11.80 sec turn, 3.00 sec retreat
+[00:24:10.76] ••• Damage dealt: 23 (1 kill) to OOM (Mablak)
+[00:24:10.76] ••• go (Syc) starts turn
+[00:24:49.16] ••• go (Syc) fires Petrol Bomb
+[00:24:54.66] ••• go (Syc) ends turn; time used: 29.08 sec turn, 3.00 sec retreat
+[00:24:58.52] ••• Ro Bad 4 (Mablak) starts turn
+[00:25:34.78] ••• Ro Bad 4 (Mablak) fires Baseball Bat
+[00:25:38.36] ••• Ro Bad 4 (Mablak) ends turn; time used: 29.74 sec turn, 3.00 sec retreat
+[00:25:42.78] ••• Damage dealt: 30 to go (Syc)
+[00:25:42.78] ••• 3Per (Syc) starts turn
+[00:26:18.36] ••• 3Per (Syc) fires Air Strike
+[00:26:21.84] ••• 3Per (Syc) ends turn; time used: 26.12 sec turn, 3.00 sec retreat
+[00:26:26.22] ••• Sudden Death
+[00:26:31.08] ••• Damage dealt: 48 to Ro Bad 4 (Mablak)
+[00:26:31.08] ••• OOM (Mablak) starts turn
+[00:26:49.36] ••• OOM (Mablak) fires Jet Pack
+[00:27:02.02] ••• OOM (Mablak) used 29 units of Jet Pack fuel
+[00:27:11.38] ••• OOM (Mablak) fires Sheep Launcher
+[00:27:11.64] ••• OOM (Mablak) loses turn due to loss of control; time used: 29.88 sec turn, 0.18 sec retreat
+[00:27:19.44] ••• Damage dealt: 66 to 3Per (Syc), 4 to OOM (Mablak)
+[00:27:19.44] ••• Ro Bad 4 (Mablak) starts turn
+[00:27:42.04] ••• Ro Bad 4 (Mablak) fires Parachute
+[00:27:46.44] ••• Ro Bad 4 (Mablak) fires Parachute
+[00:27:59.02] ••• Ro Bad 4 (Mablak) fires Flame Thrower
+[00:28:06.50] ••• Ro Bad 4 (Mablak) ends turn; time used: 29.58 sec turn, 3.00 sec retreat
+[00:28:12.18] ••• Damage dealt: 90 to go (Syc)
+[00:28:12.18] ••• 3Per (Syc) starts turn
+[00:28:33.12] ••• 3Per (Syc) fires Teleport
+[00:28:33.54] ••• resetting Jet Pack fuel use to 0
+[00:28:35.60] ••• 3Per (Syc) ends turn; time used: 10.94 sec turn, 0.02 sec retreat
+[00:28:41.96] ••• go (Syc) starts turn
+[00:29:18.22] ••• go (Syc) fires Teleport
+[00:29:20.70] ••• go (Syc) ends turn; time used: 27.26 sec turn, 0.02 sec retreat
+[00:29:22.46] ••• Ro Bad 4 (Mablak) starts turn
+[00:30:01.00] ••• Ro Bad 4 (Mablak) fires Longbow
+[00:30:02.22] ••• Ro Bad 4 (Mablak) fires Longbow
+[00:30:05.30] ••• Ro Bad 4 (Mablak) ends turn; time used: 28.54 sec turn, 3.00 sec retreat
+[00:30:10.58] ••• 3Per (Syc) starts turn
+[00:30:38.60] ••• 3Per (Syc) fires Baseball Bat
+[00:30:42.18] ••• 3Per (Syc) ends turn; time used: 26.34 sec turn, 3.00 sec retreat
+[00:31:04.86] ••• Damage dealt: 30 (1 kill) to go (Syc), 32 (1 kill) to Ro Bad 4 (Mablak)
+[00:31:04.86] ••• OOM (Mablak) starts turn
+[00:31:37.10] ••• OOM (Mablak) fires Shotgun
+[00:31:48.02] ••• OOM (Mablak) fires Shotgun
+[00:31:52.18] ••• OOM (Mablak) ends turn; time used: 27.54 sec turn, 3.00 sec retreat
+[00:31:57.86] ••• Damage dealt: 51 to 3Per (Syc)
+[00:31:57.86] ••• Ro Bad 4 (Mablak) starts turn
+[00:32:32.64] ••• Ro Bad 4 (Mablak) fires Flame Thrower
+[00:32:40.12] ••• Ro Bad 4 (Mablak) ends turn; time used: 29.08 sec turn, 3.00 sec retreat
+[00:32:46.14] ••• Damage dealt: 65 to 3Per (Syc)
+[00:32:46.14] ••• 3Per (Syc) starts turn
+[00:33:18.44] ••• 3Per (Syc) fires Parachute
+[00:33:23.36] ••• 3Per (Syc) fires Mail Strike
+[00:33:30.28] ••• 3Per (Syc) ends turn; time used: 27.22 sec turn, 3.00 sec retreat
+[00:33:35.96] ••• Damage dealt: 54 to go (Syc)
+[00:33:35.96] ••• go (Syc) starts turn
+[00:33:48.38] ••• go (Syc) fires Parachute
+[00:33:51.42] ••• go (Syc) fires Parachute
+[00:34:01.24] ••• go (Syc) fires Parachute
+[00:34:07.94] ••• go (Syc) fires Flame Thrower
+[00:34:15.42] ••• go (Syc) ends turn; time used: 29.86 sec turn, 3.00 sec retreat
+[00:34:24.56] ••• Damage dealt: 12 to Ro Bad 4 (Mablak), 23 (1 kill) to 3Per (Syc)
+[00:34:24.56] ••• Ro Bad 4 (Mablak) starts turn
+[00:35:02.44] ••• Ro Bad 4 (Mablak) fires Grenade (1 sec, min bounce)
+[00:35:06.26] ••• Ro Bad 4 (Mablak) ends turn; time used: 27.88 sec turn, 3.00 sec retreat
+[00:35:16.12] ••• Damage dealt: 72 (1 kill) to go (Syc)
+[00:35:16.12] ••• 3Per (Syc) starts turn
+[00:35:22.58] ••• 3Per (Syc) fires Low Gravity
+[00:35:39.42] ••• 3Per (Syc) fires Parachute
+[00:35:44.58] ••• 3Per (Syc) fires Parachute
+[00:35:48.66] ••• 3Per (Syc) fires Air Strike
+[00:35:52.14] ••• 3Per (Syc) ends turn; time used: 29.66 sec turn, 3.00 sec retreat
+[00:35:58.24] ••• Damage dealt: 21 to Ro Bad 4 (Mablak)
+[00:35:58.24] ••• OOM (Mablak) starts turn
+[00:36:38.22] ••• OOM (Mablak) ends turn; time used: 30.00 sec turn, 0.00 sec retreat
+[00:36:43.64] ••• Ro Bad 4 (Mablak) starts turn
+[00:37:22.62] ••• Ro Bad 4 (Mablak) fires Grenade (3 sec, min bounce)
+[00:37:27.02] ••• Ro Bad 4 (Mablak) ends turn; time used: 28.98 sec turn, 3.00 sec retreat
+[00:37:40.04] ••• Damage dealt: 16 (1 kill) to 3Per (Syc)
+[00:37:40.04] ••• OOM (Mablak) starts turn
+[00:37:47.20] ••• OOM (Mablak) fires Low Gravity
+[00:37:50.60] ••• OOM (Mablak) fires Fast Walk
+[00:37:55.44] ••• OOM (Mablak) fires Parachute
+[00:38:16.14] ••• OOM (Mablak) fires Shotgun
+[00:38:21.52] ••• OOM (Mablak) fires Shotgun
+[00:38:22.42] ••• OOM (Mablak) loses turn due to loss of control; time used: 29.48 sec turn, 0.00 sec retreat
+[00:38:29.10] ••• Damage dealt: 6 to Ro Bad 4 (Mablak), 18 to OOM (Mablak)
+[00:38:29.10] ••• Ro Bad 4 (Mablak) starts turn
+[00:39:06.82] ••• Ro Bad 4 (Mablak) fires Longbow
+[00:39:08.94] ••• Ro Bad 4 (Mablak) fires Longbow
+[00:39:08.96] ••• Ro Bad 4 (Mablak) loses turn due to loss of control; time used: 29.86 sec turn, 0.00 sec retreat
+[00:39:20.04] *** Round Finish acknowledged by Mablak
+[00:39:21.96] ••• Damage dealt: 15 to Ro Bad 4 (Mablak)
+[00:39:21.98] ••• Game Ends - Round Finished
+[00:39:21.98] *** Round Finish acknowledged by Syc
+
+Round time with <v3.6.31.1 would be: 00:39:05.36 (16.62 s less)
+
+Team time totals:
+go (Syc):          Turn: 00:03:29.44, Retreat: 00:00:18.02, Total: 00:03:47.46, Turn count: 8
+Ro Bad 4 (Mablak): Turn: 00:08:30.38, Retreat: 00:00:54.86, Total: 00:09:25.24, Turn count: 18
+3Per (Syc):        Turn: 00:06:31.18, Retreat: 00:00:41.22, Total: 00:07:12.40, Turn count: 16
+OOM (Mablak):      Turn: 00:04:32.68, Retreat: 00:00:14.20, Total: 00:04:46.88, Turn count: 10
+
+End of round 1
+
+Round time: 0:39:21
+Total game time elapsed: 0:39:21
+
+Ro Bad 4 wins the round.
+
+Worm of the round: Bow/Bat/HHG (3Per)
+Most damage with one shot: 245 - Bow/Bat/HHG (3Per)

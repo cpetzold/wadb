@@ -1,0 +1,49 @@
+Build Version: v3.8.1.7 (2021-11-19 07:44:47 GMT)
+
+Game Started at 2021-12-02 07:22:23 GMT
+Game Engine Version: 3.8.1.7
+File Format Version: 3.7.3.0 - 3.8.1.7
+Exported with Version: 3.8.1.7
+
+Red:  "C Team"
+Blue: "ROYALTY"    [CPU 1.00]
+Blue: "TEAM17"     [CPU 1.00]
+Blue: "NASTY CREW" [CPU 1.00]
+
+[00:00:01.98] ••• C Team starts turn
+[00:00:07.10] ••• C Team fires Ninja Rope
+[00:00:14.00] ••• C Team uses Parachute
+[00:00:16.74] ••• C Team fires Ninja Rope
+[00:00:26.34] ••• C Team fires Low Gravity
+[00:00:29.60] ••• C Team fires Baseball Bat
+[00:00:33.18] ••• C Team ends turn; time used: 24.96 sec turn, 3.00 sec retreat
+[00:00:40.88] ••• Damage dealt: 100 (1 kill) to TEAM17
+[00:00:40.88] ••• NASTY CREW starts turn
+[00:00:45.16] ••• NASTY CREW fires Shotgun
+[00:00:51.60] ••• NASTY CREW fires Shotgun
+[00:00:55.78] ••• NASTY CREW ends turn; time used: 8.58 sec turn, 3.00 sec retreat
+[00:00:59.80] ••• C Team starts turn
+[00:01:01.44] ••• C Team fires Select Worm
+[00:01:20.10] ••• C Team fires Kamikaze
+[00:01:20.58] ••• C Team loses turn due to loss of control; time used: 18.76 sec turn, 0.00 sec retreat
+[00:01:22.66] ••• Damage dealt: 100 (1 kill) to C Team, 34 to ROYALTY
+[00:01:22.66] ••• Game Ends - User Quit with Alt+F4
+
+Round time with <v3.6.31.1 would be: 00:01:21.16 (1.50 s less)
+
+Team time totals:
+C Team:     Turn: 00:00:43.72, Retreat: 00:00:03.00, Total: 00:00:46.72, Turn count: 2
+ROYALTY:    Turn: 00:00:00.00, Retreat: 00:00:00.00, Total: 00:00:00.00, Turn count: 0
+TEAM17:     Turn: 00:00:00.00, Retreat: 00:00:00.00, Total: 00:00:00.00, Turn count: 0
+NASTY CREW: Turn: 00:00:08.58, Retreat: 00:00:03.00, Total: 00:00:11.58, Turn count: 1
+
+End of round 1
+
+Round time: 0:01:22
+Total game time elapsed: 0:01:22
+
+The round was drawn.
+
+Worm of the round: Conner (C Team)
+Most kills with one shot: 1 - Conner (C Team)
+Most damage with one shot: 100 - Conner (C Team)

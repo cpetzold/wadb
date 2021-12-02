@@ -1,0 +1,80 @@
+Build Version: v3.8.1.7 (2021-11-19 07:44:47 GMT)
+
+Game Started at 2021-12-02 07:23:49 GMT
+Game Engine Version: 3.8.1.7
+File Format Version: 3.7.3.0 - 3.8.1.7
+Exported with Version: 3.8.1.7
+
+Red:  "C Team"
+Blue: "ROYALTY"    [CPU 1.00]
+Blue: "TEAM17"     [CPU 1.00]
+Blue: "NASTY CREW" [CPU 1.00]
+
+[00:00:01.98] ••• NASTY CREW starts turn
+[00:00:07.52] ••• NASTY CREW fires Grenade (1 sec, min bounce)
+[00:00:10.60] ••• NASTY CREW ends turn; time used: 5.52 sec turn, 2.56 sec retreat
+[00:00:15.02] ••• Damage dealt: 27 to C Team
+[00:00:15.02] ••• C Team starts turn
+[00:00:17.12] ••• C Team fires Select Worm
+[00:00:20.14] ••• C Team fires Low Gravity
+[00:00:21.94] ••• C Team fires Bazooka
+[00:00:26.54] ••• C Team ends turn; time used: 4.84 sec turn, 3.00 sec retreat
+[00:00:33.90] ••• Damage dealt: 100 (1 kill) to TEAM17
+[00:00:33.90] ••• ROYALTY starts turn
+[00:00:38.32] ••• ROYALTY fires Bazooka
+[00:00:38.98] ••• ROYALTY loses turn due to loss of control; time used: 4.40 sec turn, 0.10 sec retreat
+[00:00:44.94] ••• Damage dealt: 16 to C Team, 28 to ROYALTY
+[00:00:44.94] ••• C Team starts turn
+[00:00:45.40] ••• C Team fires Select Worm
+[00:00:49.62] ••• C Team fires Ninja Rope
+[00:00:54.52] ••• C Team fires Fire Punch
+[00:00:58.60] ••• C Team loses turn due to loss of control; time used: 9.20 sec turn, 2.28 sec retreat
+[00:01:06.86] ••• Damage dealt: 73 (1 kill) to C Team, 100 (1 kill) to NASTY CREW
+[00:01:06.86] ••• ROYALTY starts turn
+[00:01:11.56] ••• ROYALTY fires Bazooka
+[00:01:14.26] ••• ROYALTY ends turn; time used: 4.68 sec turn, 2.32 sec retreat
+[00:01:17.28] ••• Damage dealt: 33 to C Team
+[00:01:17.28] ••• C Team starts turn
+[00:01:17.82] ••• C Team fires Select Worm
+[00:01:21.38] ••• C Team fires Ninja Rope
+[00:01:40.22] ••• C Team fires Sheep
+[00:01:40.34] ••• C Team loses turn due to loss of control; time used: 22.22 sec turn, 0.10 sec retreat
+[00:01:59.46] ••• Damage dealt: 67 (1 kill) to C Team, 72 (1 kill) to ROYALTY
+[00:01:59.48] ••• Game Ends - Round Finished
+
+Round time with <v3.6.31.1 would be: 00:01:55.20 (4.28 s less)
+
+Team time totals:
+C Team:     Turn: 00:00:36.26, Retreat: 00:00:05.38, Total: 00:00:41.64, Turn count: 3
+ROYALTY:    Turn: 00:00:09.08, Retreat: 00:00:02.42, Total: 00:00:11.50, Turn count: 2
+TEAM17:     Turn: 00:00:00.00, Retreat: 00:00:00.00, Total: 00:00:00.00, Turn count: 0
+NASTY CREW: Turn: 00:00:05.52, Retreat: 00:00:02.56, Total: 00:00:08.08, Turn count: 1
+
+End of round 1
+
+Round time: 0:01:59
+Total game time elapsed: 0:01:59
+
+A total of 5 Worm(s) were killed during this game.
+A total of 348pts of damage were lost during this game.
+
+C Team wins the match!
+
+Worm of the round: Caroline (C Team)
+
+Most damage with one shot: 173 - Worm 7 (C Team)
+
+------------ Awards ------------
+
+Teams
+
+TEAM17 were not very good at all.
+
+
+Worms
+
+The Worm of the match award goes to Caroline (C Team) with 1 kill(s).
+Most damage with one shot: 173 - Worm 7 (C Team)
+The best shot award was won by Worm 7 (C Team) with 2 kill(s) and 173 pts.
+
+Lambo (TEAM17) was the most useless.

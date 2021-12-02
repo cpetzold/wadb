@@ -1,0 +1,22 @@
+Build Version: v3.8.1.7 (2021-11-19 07:44:47 GMT)
+
+Game Started at 2021-12-02 07:17:50 GMT
+Game Engine Version: 3.8.1.7
+File Format Version: 3.7.3.0 - 3.8.1.7
+Exported with Version: 3.8.1.7
+
+Red: "C Team"
+
+[00:00:00.92] ••• C Team starts turn
+[00:00:01.66] ••• C Team fires Grenade (2 sec, min bounce)
+[00:00:03.28] ••• C Team fires Grenade (1 sec, min bounce)
+[00:00:04.94] ••• C Team fires Grenade (1 sec, min bounce)
+[00:00:07.76] ••• C Team ends turn; time used: 6.56 sec turn, 0.00 sec retreat
+[00:00:09.72] ••• Game Ends - User Quit with Alt+F4
+
+Round time with <v3.6.31.1 would be: 00:00:09.72 (0.00 s less)
+
+Team time totals:
+C Team: Turn: 00:00:06.56, Retreat: 00:00:00.00, Total: 00:00:06.56, Turn count: 1
+
+Mission Failed

@@ -1,0 +1,28 @@
+Build Version: v3.8.1.7 (2021-11-19 07:44:47 GMT)
+
+Game Started at 2021-11-30 00:19:58 GMT
+Game Engine Version: 3.8.1.7
+File Format Version: 3.7.3.0 - 3.8.1.7
+Exported with Version: 3.8.1.7
+
+Red:  "Player One"
+Blue: "ROYALTY" [CPU 4.95]
+
+[00:00:00.00] ••• ROYALTY starts turn
+[00:00:06.54] ••• ROYALTY fires Bazooka
+[00:00:06.76] ••• ROYALTY ends turn; time used: 6.52 sec turn, 0.00 sec retreat
+[00:00:06.76] ••• Game Ends - User Quit with Alt+F4
+
+Round time with <v3.6.31.1 would be: 00:00:06.76 (0.00 s less)
+
+Team time totals:
+Player One: Turn: 00:00:00.00, Retreat: 00:00:00.00, Total: 00:00:00.00, Turn count: 0
+ROYALTY:    Turn: 00:00:06.52, Retreat: 00:00:00.00, Total: 00:00:06.52, Turn count: 1
+
+End of round 1
+
+Round time: 0:00:06
+Total game time elapsed: 0:00:06
+
+The round was drawn.
+

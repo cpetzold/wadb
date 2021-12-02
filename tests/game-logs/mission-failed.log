@@ -1,0 +1,36 @@
+Build Version: v3.8.1.7 (2021-11-19 07:44:47 GMT)
+
+Game Started at 2021-12-02 09:59:40 GMT
+Game Engine Version: 3.8.1.7
+File Format Version: 3.7.3.0 - 3.8.1.7
+Exported with Version: 3.8.1.7
+
+Mission #1: Pumpkin Problems.
+
+Red:  "C Team"
+Blue: "Patrol"  [CPU 4.00]
+Blue: "Gunners" [CPU 3.00]
+
+[00:00:02.42] ••• C Team starts turn
+[00:00:02.44] ••• C Team fires Shotgun
+[00:00:07.02] ••• C Team loses turn due to loss of control; time used: 2.50 sec turn, 0.00 sec retreat
+[00:00:11.40] ••• Damage dealt: 31 to C Team
+[00:00:11.40] ••• Patrol starts turn
+[00:00:15.06] ••• Patrol fires Shotgun
+[00:00:20.84] ••• Patrol fires Shotgun
+[00:00:25.02] ••• Patrol ends turn; time used: 7.30 sec turn, 3.00 sec retreat
+[00:00:32.24] ••• C Team starts turn
+[00:00:32.94] ••• C Team fires Laser Sight
+[00:00:35.16] ••• C Team fires Ninja Rope
+[00:00:38.60] ••• C Team loses turn due to loss of control; time used: 6.30 sec turn, 0.00 sec retreat
+[00:00:45.24] ••• Damage dealt: 119 (1 kill) to C Team
+[00:00:45.26] ••• Game Ends - Round Finished
+
+Round time with <v3.6.31.1 would be: 00:00:44.20 (1.06 s less)
+
+Team time totals:
+C Team:  Turn: 00:00:08.80, Retreat: 00:00:00.00, Total: 00:00:08.80, Turn count: 2
+Patrol:  Turn: 00:00:07.30, Retreat: 00:00:03.00, Total: 00:00:10.30, Turn count: 1
+Gunners: Turn: 00:00:00.00, Retreat: 00:00:00.00, Total: 00:00:00.00, Turn count: 0
+
+Mission Failed
