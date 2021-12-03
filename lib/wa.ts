@@ -7,7 +7,9 @@ import {
   join,
   map,
   prop,
+  replace,
   split,
+  toUpper,
   values,
 } from "ramda";
 import { TypedRegEx } from "typed-regex";
@@ -309,7 +311,7 @@ function parseEvent(event: string): Event | undefined {
   return undefined;
 }
 
-export function parseGameLog(log: string): WAGame {
+export function parseGameLog(log: string, originalFilename: string): WAGame {
   const buildVersion = buildVersionRegex.captures(log)!.buildVersion;
   const id = idRegex.captures(log)?.id;
   const startedAt = startedAtRegex.captures(log)!.startedAt;
@@ -457,6 +459,12 @@ export function parseGameLog(log: string): WAGame {
     type = "mission";
   } else if (!isEmpty(players)) {
     type = "online";
+  } else if (originalFilename.includes("[Training]")) {
+    type = "training";
+  } else if (originalFilename.includes("[Quick CPU]")) {
+    type = "quick";
+  } else if (originalFilename.includes("[Deathmatch]")) {
+    type = "deathmatch";
   }
 
   return {
@@ -489,6 +497,8 @@ export function parseTimestamp(str: string): number {
   );
 }
 
+const capitalize = replace(/^./, toUpper);
+
 export function replayFilename(game: WAGame): string {
   const startedAt = format(game.startedAt, "yyyy-MM-dd HH.mm.ss");
   const playerList = join(
@@ -498,5 +508,13 @@ export function replayFilename(game: WAGame): string {
       values(game.players)
     )
   );
-  return `${startedAt} [WADB] ${playerList}.wagame`;
+  const teamList = join(", ", map(prop("name"), values(game.teams)));
+
+  const typeStr = game.type
+    ? ` [${capitalize(game.type)}${
+        game.type === "mission" ? ` #${game.mission?.number}` : ""
+      }]`
+    : "";
+
+  return `${startedAt} [WADB]${typeStr} ${playerList || teamList}.WAgame`;
 }

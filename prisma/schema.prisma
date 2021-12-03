@@ -12,4 +12,5 @@ model Game {
   filename   String   @unique
   uploadedAt DateTime
   data       Json
+  replay     Bytes
 }

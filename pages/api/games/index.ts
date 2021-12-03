@@ -48,24 +48,23 @@ handler.post(upload.single("replay"), async (req, res) => {
 
   const logPath = replay.path + ".log";
   const log = iconv.decode(await fs.readFile(logPath), "win1251");
-  const gameData = parseGameLog(log);
+  const gameData = parseGameLog(log, replay.originalname);
 
   const filename = replayFilename(gameData);
-
-  await fs.move(replay.path, path.join("public", "replays", filename));
-
-  fs.remove(replay.path);
-  fs.remove(logPath);
-  fs.remove(waInstanceDir);
 
   const game = await db.game.create({
     data: {
       md5,
       filename,
       uploadedAt: new Date(),
-      data: gameData as unknown as Prisma.JsonObject,
+      data: gameData as object,
+      replay: await fs.readFile(replay.path),
     },
   });
+
+  fs.remove(replay.path);
+  fs.remove(logPath);
+  fs.remove(waInstanceDir);
 
   res.json({
     md5: game.md5,
@@ -90,7 +89,7 @@ handler.get(async (req, res) => {
       return {
         md5: game.md5,
         filename: game.filename,
-        replay: `https://wadb.wormsranking.com/replays/${game.filename}`,
+        replay: `https://wadb.wormsranking.com/api/replays/${game.filename}`,
         details: `https://wadb.wormsranking.com/api/games/${game.md5}`,
         uploadedAt: game.uploadedAt,
       };
