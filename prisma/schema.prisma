@@ -8,9 +8,10 @@ datasource db {
 }
 
 model Game {
-  md5        String   @id
-  filename   String   @unique
-  uploadedAt DateTime
-  data       Json
-  replay     Bytes
+  md5              String   @id
+  filename         String   @unique
+  originalFilename String
+  uploadedAt       DateTime
+  data             Json
+  replay           Bytes
 }

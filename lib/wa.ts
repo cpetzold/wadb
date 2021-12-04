@@ -181,7 +181,7 @@ const offlineTeamRegex = TypedRegEx(
 );
 
 const teamTimeTotalsRegex = TypedRegEx(
-  "^(?<teamName>.+):\\s+Turn: (?<turnTime>[^,]+), Retreat: (?<retreatTime>[^,]+), Total: (?<totalTime>[^,]+), Turn count: (?<turnCount>\\d+)$",
+  "^(?<teamName>.+)( \\((?<playerName>[^\\)]+)\\))?:\\s+Turn: (?<turnTime>[^,]+), Retreat: (?<retreatTime>[^,]+), Total: (?<totalTime>[^,]+), Turn count: (?<turnCount>\\d+)$",
   "gm"
 );
 
@@ -421,7 +421,7 @@ export function parseGameLog(log: string, originalFilename: string): WAGame {
         name: teamName,
         color: colorOrSpectator,
         cpu: false,
-        won: teamName === winningTeam,
+        won: teamName === winningTeam || !!mission?.successful,
         ...teamTimeTotals[teamName]!,
       };
     }

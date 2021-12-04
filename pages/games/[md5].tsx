@@ -22,14 +22,27 @@ import { PrismaClient } from "@prisma/client";
 import { format, formatRelative } from "date-fns";
 import { GetServerSidePropsContext } from "next";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import prettyMilliseconds from "pretty-ms";
 import { isEmpty, replace, toUpper, values } from "ramda";
 import React from "react";
 import Page from "../../components/Page";
 
+import cpu1 from "../../public/cpu1.png";
+import cpu2 from "../../public/cpu2.png";
+import cpu3 from "../../public/cpu3.png";
+import cpu4 from "../../public/cpu4.png";
+import cpu5 from "../../public/cpu5.png";
+import human from "../../public/human.png";
+import victory from "../../public/victory.png";
+
+const pm = (ms: number) => prettyMilliseconds(ms, { colonNotation: true });
+
 const ReactJson = dynamic(import("react-json-view"), { ssr: false });
 
 const db = new PrismaClient();
+
+const cpuImages = [cpu1, cpu2, cpu3, cpu4, cpu5];
 
 const capitalize = replace(/^./, toUpper);
 
@@ -50,7 +63,7 @@ function GameHeader({ game }) {
     case "quick":
       return <>Quick CPU Game</>;
   }
-  return "Game";
+  return <>Game</>;
 }
 
 function Teams({ teams }) {
@@ -85,38 +98,35 @@ function Teams({ teams }) {
                 {team.name}
               </Box>
             </Td>
-            <Td>{team.cpu ? <>CPU {team.cpuLevel}</> : team.player}</Td>
-            <Td>{team.won ? "yes" : "no"}</Td>
+            <Td>
+              <HStack>
+                <Image
+                  width={24}
+                  height={24}
+                  src={
+                    team.cpu ? cpuImages[Math.ceil(team.cpuLevel) - 1] : human
+                  }
+                />
+                <Text>{team.player}</Text>
+              </HStack>
+            </Td>
+            <Td>
+              {team.won && (
+                <Image
+                  width={32}
+                  height={(victory.height / victory.width) * 32}
+                  src={victory}
+                />
+              )}
+            </Td>
             <Td>{team.turnCount}</Td>
-            <Td>{prettyMilliseconds(team.turnTime)}</Td>
-            <Td>{prettyMilliseconds(team.retreatTime)}</Td>
-            <Td>{prettyMilliseconds(team.totalTime)}</Td>
+            <Td>{team.turnTime && pm(team.turnTime)}</Td>
+            <Td>{team.retreatTime && pm(team.retreatTime)}</Td>
+            <Td>{team.totalTime && pm(team.totalTime)}</Td>
           </Tr>
         ))}
       </Tbody>
     </Table>
-  );
-}
-
-function Players({ players }) {
-  return (
-    <VStack
-      sx={{
-        alignItems: "start",
-        backgroundColor: "gray.900",
-        paddingX: 3,
-        paddingY: 2,
-        borderRadius: "sm",
-        color: "gray.200",
-      }}
-      spacing={1}
-    >
-      {values(players).map((player) => (
-        <HStack key={player.name} spacing={1}>
-          <Text fontWeight="bold">{player.name}</Text>
-        </HStack>
-      ))}
-    </VStack>
   );
 }
 
@@ -148,7 +158,15 @@ function Game({ game }) {
         {game.roundTime && (
           <Stat>
             <StatLabel>Round Time</StatLabel>
-            <StatNumber>{prettyMilliseconds(game.roundTime)}</StatNumber>
+            <StatNumber>{pm(game.roundTime)}</StatNumber>
+          </Stat>
+        )}
+        {game.mission && (
+          <Stat>
+            <StatLabel>Mission Outcome</StatLabel>
+            <StatNumber>
+              {game.mission.successful ? "Success!" : "Failure :("}
+            </StatNumber>
           </Stat>
         )}
         {game.engineVersion && (
@@ -179,18 +197,10 @@ function Game({ game }) {
         )}
       </HStack>
 
-      <HStack align="start" spacing={4} marginTop={5}>
-        <Box>
-          <Heading size="md">Teams</Heading>
-          <Teams teams={game.teams} />
-        </Box>
-        {!isEmpty(game.players) && (
-          <Stat>
-            <StatLabel>Players</StatLabel>
-            <Players players={game.players} />
-          </Stat>
-        )}
-      </HStack>
+      <Box marginTop={5}>
+        <Heading size="md">Teams</Heading>
+        <Teams teams={game.teams} />
+      </Box>
     </Box>
   );
 }
