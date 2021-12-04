@@ -41,37 +41,42 @@ handler.post(upload.single("replay"), async (req, res) => {
   }
 
   const waInstanceDir = `/home/conner/wa-instances/${md5}`;
-  await fs.copy("/home/conner/wa-instances/template", waInstanceDir);
-  await exec(
-    `wine "C:\\wa-instances\\${md5}\\WA.exe" /quiet /getlog "$(winepath -w '${replay.path}')"`
-  );
-
   const logPath = replay.path + ".log";
-  const log = iconv.decode(await fs.readFile(logPath), "win1251");
-  const gameData = parseGameLog(log, replay.originalname);
 
-  const filename = replayFilename(gameData);
+  try {
+    await fs.copy("/home/conner/wa-instances/template", waInstanceDir);
+    await exec(
+      `wine "C:\\wa-instances\\${md5}\\WA.exe" /quiet /getlog "$(winepath -w '${replay.path}')"`
+    );
 
-  const game = await db.game.create({
-    data: {
-      md5,
-      filename,
-      uploadedAt: new Date(),
-      data: gameData as object,
-      replay: await fs.readFile(replay.path),
-    },
-  });
+    const log = iconv.decode(await fs.readFile(logPath), "win1251");
+    const gameData = parseGameLog(log, replay.originalname);
 
-  fs.remove(replay.path);
-  fs.remove(logPath);
-  fs.remove(waInstanceDir);
+    const filename = replayFilename(gameData);
 
-  res.json({
-    md5: game.md5,
-    filename: game.filename,
-    uploadedAt: game.uploadedAt,
-    ...(game.data as Prisma.JsonObject),
-  });
+    const game = await db.game.create({
+      data: {
+        md5,
+        filename,
+        uploadedAt: new Date(),
+        data: gameData as object,
+        replay: await fs.readFile(replay.path),
+      },
+    });
+
+    res.json({
+      md5: game.md5,
+      filename: game.filename,
+      uploadedAt: game.uploadedAt,
+      ...(game.data as Prisma.JsonObject),
+    });
+  } catch (e) {
+    throw e;
+  } finally {
+    fs.remove(replay.path);
+    fs.remove(logPath);
+    fs.remove(waInstanceDir);
+  }
 });
 
 handler.get(async (req, res) => {

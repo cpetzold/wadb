@@ -16,9 +16,9 @@ import { TypedRegEx } from "typed-regex";
 
 type Player = {
   name: string;
-  addr: string;
-  lang: string;
-  build: string;
+  addr?: string;
+  lang?: string;
+  build?: Build;
   spectator: boolean;
   local: boolean;
   host: boolean;
@@ -105,9 +105,15 @@ type Mission = {
   successful: boolean;
 };
 
+type Build = {
+  version: string;
+  release?: string;
+  builtAt?: Date;
+};
+
 export type WAGame = {
   id?: string;
-  buildVersion: string;
+  build?: Build;
   engineVersion: string;
   fileFormatVersion: string;
   exportedWithVersion: string;
@@ -124,8 +130,8 @@ export type WAGame = {
   events: Event[];
 };
 
-const buildVersionRegex = TypedRegEx(
-  "^Build Version: (?<buildVersion>.*)$",
+const buildRegex = TypedRegEx(
+  "^Build Version: v?(?<version>([\\w\\.]+(\\s+\\w+)?))(\\s+\\((?<release>(CD|Steam))\\))?(\\s+\\((?<builtAt>.*)\\))?$",
   "gm"
 );
 const idRegex = TypedRegEx('^Game ID: "(?<id>.*)"', "gm");
@@ -165,7 +171,7 @@ const winnerRegex = TypedRegEx(
 );
 
 const playerRegex = TypedRegEx(
-  '^(?<colorOrSpectator>Red|Green|Blue|Yellow|Magenta|Cyan|Spectator):\\s+"(?<name>[^"]+)"(\\s+as)?\\s+("(?<teamName>[^"]+)")*.*(\\(addr: (?<addr>[^\\)]+)\\)\\s+)?\\(lang: (?<lang>[^\\)]+)\\)\\s+\\(build: (?<build>.*\\])\\)\\s*(?<local>\\[Local Player\\])?\\s*(?<host>\\[Host\\])?$',
+  '^(?<colorOrSpectator>Red|Green|Blue|Yellow|Magenta|Cyan|Spectator):\\s+"(?<name>[^"]+)"(\\s+as)?\\s+("(?<teamName>[^"]+)")?.*(\\(addr: (?<addr>[^\\)]+)\\)\\s+)?\\(lang: (?<lang>[^\\)]+)\\)\\s+\\(build: v?(?<buildVersion>[\\w\\.]+(\\s+\\w+)?)(\\s+\\((?<buildRelease>(CD|Steam))\\))?(\\s+\\[(?<builtAt>.*)\\])?\\)\\s*(?<local>\\[Local Player\\])?\\s*(?<host>\\[Host\\])?$',
   "gm"
 );
 
@@ -312,7 +318,16 @@ function parseEvent(event: string): Event | undefined {
 }
 
 export function parseGameLog(log: string, originalFilename: string): WAGame {
-  const buildVersion = buildVersionRegex.captures(log)!.buildVersion;
+  const buildCaptures = buildRegex.captures(log);
+  const build: Build | undefined = buildCaptures
+    ? {
+        version: buildCaptures.version!,
+        release: buildCaptures.release,
+        builtAt: buildCaptures.builtAt
+          ? new Date(buildCaptures.builtAt)
+          : undefined,
+      }
+    : undefined;
   const id = idRegex.captures(log)?.id;
   const startedAt = startedAtRegex.captures(log)!.startedAt;
   const engineVersion = engineVersionRegex.captures(log)!.engineVersion;
@@ -337,9 +352,10 @@ export function parseGameLog(log: string, originalFilename: string): WAGame {
     : undefined;
 
   const totalTimeCapture = totalTimeRegex.captures(log)?.totalTime;
-  const totalTime = totalTimeCapture
-    ? parseTimestamp(totalTimeCapture)
-    : undefined;
+  const totalTime =
+    totalTimeCapture && totalTimeCapture !== "Unknown"
+      ? parseTimestamp(totalTimeCapture)
+      : undefined;
 
   const winnerCaptures = winnerRegex.captures(log);
   const winningTeam = winnerCaptures?.teamName;
@@ -368,8 +384,18 @@ export function parseGameLog(log: string, originalFilename: string): WAGame {
       return;
     }
 
-    const { colorOrSpectator, name, teamName, addr, lang, build, local, host } =
-      capture;
+    const {
+      colorOrSpectator,
+      name,
+      teamName,
+      addr,
+      lang,
+      buildVersion,
+      buildRelease,
+      builtAt,
+      local,
+      host,
+    } = capture;
 
     const spectator = colorOrSpectator == "Spectator";
 
@@ -377,7 +403,13 @@ export function parseGameLog(log: string, originalFilename: string): WAGame {
       name,
       addr,
       lang,
-      build: build.replace(/\s+/g, " "),
+      build: buildVersion
+        ? {
+            version: buildVersion,
+            release: buildRelease,
+            builtAt: builtAt ? new Date(builtAt) : undefined,
+          }
+        : undefined,
       spectator,
       local: !!local,
       host: !!host,
@@ -393,6 +425,7 @@ export function parseGameLog(log: string, originalFilename: string): WAGame {
         ...teamTimeTotals[teamName]!,
       };
     }
+    // @ts-ignore
   }, playerRegex.captureAll(log));
 
   forEach((capture) => {
@@ -468,7 +501,7 @@ export function parseGameLog(log: string, originalFilename: string): WAGame {
   }
 
   return {
-    buildVersion,
+    build,
     engineVersion,
     exportedWithVersion,
     fileFormatVersion,
