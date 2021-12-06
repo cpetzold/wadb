@@ -2,12 +2,12 @@ import { extendTheme } from "@chakra-ui/react";
 
 // 2. Add your color mode config
 const config = {
-  initialColorMode: "light",
+  initialColorMode: "dark",
   useSystemColorMode: false,
 };
 
 const anchorStyle = {
-  color: "blue.300",
+  color: "blue.100",
   _hover: {
     textDecoration: "underline",
   },
@@ -19,6 +19,9 @@ const theme = extendTheme({
   styles: {
     global: {
       a: anchorStyle,
+      body: {
+        backgroundColor: "gray.900",
+      },
     },
   },
   components: {

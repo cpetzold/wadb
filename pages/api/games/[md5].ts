@@ -2,6 +2,7 @@ import { PrismaClient, Prisma } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 
 import nc from "next-connect";
+import { map, omit } from "ramda";
 
 const db = new PrismaClient();
 
@@ -16,12 +17,20 @@ handler.get(async (req, res) => {
     res.status(404);
     return res.send("Game not found");
   }
+  const dataObj = game?.data as any;
+  const data = game
+    ? {
+        ...omit(["build"], dataObj),
+        players: map(omit(["build"]), dataObj.players),
+      }
+    : {};
 
   res.json({
     md5: game.md5,
     uploadedAt: game.uploadedAt,
     filename: game.filename,
-    ...(game.data as Prisma.JsonObject),
+    originalFilename: game.originalFilename,
+    ...data,
   });
 });
 

@@ -58,6 +58,7 @@ handler.post(upload.single("replay"), async (req, res) => {
       data: {
         md5,
         filename,
+        originalFilename: replay.originalname,
         uploadedAt: new Date(),
         data: gameData as object,
         replay: await fs.readFile(replay.path),
